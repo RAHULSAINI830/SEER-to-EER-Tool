@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        
+
+        .container {
+            background: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            width: 90%;
+            max-width: 500px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #333333;
+        }
+
+        input[type="number"] {
+            width: calc(100% - 110px);
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #cccccc;
+            border-radius: 5px;
+            font-size: 16px;
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        select {
+            width: 100px;
+            padding: 10px;
+            margin-left: 10px;
+            border: 1px solid #cccccc;
+            border-radius: 5px;
+            font-size: 16px;
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        .result {
+            margin-top: 50px;
+            margin-bottom: 50px;
+            font-size: 28px;
+            color: #ee5566;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .buttons button {
+            flex: 1;
+            margin: 0 5px;
+            background: #ee5566;
+            color: #ffffff;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        .buttons button:hover {
+            background: #cc4455;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>SEER to EER Converter</h1>
+        <!-- First Section -->
+        <input type="number" id="btuInput" placeholder="Enter SEER" oninput="convertFromBTU()" />
+
+        <!-- Second Section -->
+        <input type="number" id="tonsInput" placeholder="Enter EER" oninput="convertFromTons()" />
+
+    </div>
+
+    <script>
+        function convertFromBTU() {
+            const btuValue = parseFloat(document.getElementById('btuInput').value);
+
+            if (isNaN(btuValue) || btuValue <= 0) {
+                document.getElementById('result').innerText = "Please enter a valid SEER value.";
+                return;
+            }
+
+            const tonsValue = (btuValue * 0.875).toFixed(2);
+            document.getElementById('tonsInput').value = tonsValue;
+
+            // Update third section based on BTU
+            updateOtherUnits();
+
+            document.getElementById('result').innerText = `${btuValue} BTU = ${tonsValue} Tons`;
+        }
+
+        function convertFromTons() {
+            const tonsValue = parseFloat(document.getElementById('tonsInput').value);
+
+            if (isNaN(tonsValue) || tonsValue <= 0) {
+                document.getElementById('result').innerText = "Please enter a valid EER value.";
+                return;
+            }
+
+            const btuValue = (tonsValue / 0.875).toFixed(2);
+            document.getElementById('btuInput').value = btuValue;
+
+            // Update third section based on Tons
+            updateOtherUnits();
+
+            document.getElementById('result').innerText = `${tonsValue} Tons = ${btuValue} BTU`;
+        }
+  
+    </script>
+</body>
+
+</html>
